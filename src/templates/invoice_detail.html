@@ -5,17 +5,17 @@
 {% block content %}
 <div class="col-sm-4 col-sm-offset-4">
   <h3>Number: {{ invoice.id }}</h3>
-  <p>User: {{ invoice.user }}</p>
-  <p>Receiver: {{ invoice.receiver }}</p>
-  <p>Sender: {{ invoice.sender  }}</p>
-  <p>Date: {{ invoice.date }}</p>
-  <p>Due date:{{ invoice.due_date }}</p>
+  <p><strong>User:</strong> {{ invoice.user }}</p>
+  <p><strong>Receiver:</strong> {{ invoice.receiver }}</p>
+  <p><strong>Sender:</strong> {{ invoice.sender  }}</p>
+  <p><strong>Date:</strong> {{ invoice.date }}</p>
+  <p><strong>Due date:</strong> {{ invoice.due_date }}</p>
   Items:
   <div class="row">
-    <div class="col-sm-3">Name</div>
-    <div class="col-sm-3">Price</div>
-    <div class="col-sm-3">Quantity</div>
-    <div class="col-sm-3">Amount</div>
+    <div class="col-sm-3"><strong>Name</strong></div>
+    <div class="col-sm-3"><strong>Price</strong></div>
+    <div class="col-sm-3"><strong>Quantity</strong></div>
+    <div class="col-sm-3"><strong>Amount</strong></div>
   </div>
   <div class="row">
     {% for line_item in line_items %}
@@ -25,11 +25,13 @@
       <div class="col-sm-3">{{ line_item.amount }}$</div>
     {% endfor %}
   </div>
-  <p>Subtotal: {{ invoice.subtotal }}$</p>
-  <p>Discount: {{ invoice.discount }}{{invoice.discount_type}}</p>
-  <p>Tax: {{invoice.tax }}{{invoice.tax_type}}</p>
-  <p>Shipping: {{ invoice.shipping_price }}$</p>
-  <p>Total: {{ invoice.total }}$</p>
+  <p><strong>Subtotal:</strong> {{ invoice.subtotal }}$</p>
+  <p><strong>Discount:</strong> {{ invoice.discount }}{{invoice.discount_type}}</p>
+  <p><strong>Tax:</strong> {{invoice.tax }}{{invoice.tax_type}}</p>
+  <p><strong>Shipping:</strong> {{ invoice.shipping_price }}$</p>
+  <p><strong>Total:</strong> {{ invoice.total }}$</p>
   <a href='{{invoice.get_edit_url}}'><button class="btn btn-default">Edit</button></a>
+  <a href='{{invoice.get_delete_url}}'><button class='btn btn-default'>Delete</button></a>
 </div>
+
 {% endblock content %}

@@ -54,6 +54,9 @@ class Invoice(models.Model):
     def get_edit_url(self):
         return reverse('invoices:edit', kwargs={'id': self.id})
 
+    def get_delete_url(self):
+        return reverse('invoices:delete', kwargs={'id': self.id})
+
     def clean(self):
         if self.date > self.due_date:
             raise ValidationError('Date cannot precede due date')

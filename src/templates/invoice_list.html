@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h3>Your invoices</h3>
+<a href="{% url 'invoices:create' %}"><button class="btn btn-default">New invoice</button></a>
 <div class="row">
   {% for invoice in invoices %}
     <div class='col-sm-6'>
