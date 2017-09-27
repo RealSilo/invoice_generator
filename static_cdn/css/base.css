@@ -3,5 +3,9 @@
 }
 
 .shipping-row {
-  margin: 20 0 0 0;
+  padding-top: 20px;
+}
+
+.form-submit-row {
+  padding-top: 20px;
 }

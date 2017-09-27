@@ -79,6 +79,6 @@ class Invoice(models.Model):
 class InvoiceLineItem(models.Model):
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
     name = models.CharField(max_length=127)
-    quantity = models.IntegerField(default=1)
+    quantity = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
     amount = models.IntegerField(default=0)
