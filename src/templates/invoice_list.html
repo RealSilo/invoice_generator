@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Your invoices</h3>
+<div class="row">
+  {% for invoice in invoices %}
+    <div class='col-sm-6'>
+      <h4><a href='{{invoice.get_absolute_url}}'>{{ invoice.id }}</a></h4>
+      <p>{{ invoice.receiver }}</p>
+      <p>{{ invoice.sender }}</p>
+      <p>{{ invoice.due_date }}</p>
+    </div>
+   {% cycle "" "</div><div class='row'>" %} 
+  {% endfor %}
+</div>
+<div class="pagination">
+  <span class="step-links">
+    {% if invoices.has_previous %}
+      <a href="?page={{ invoices.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ invoices.number }} of {{ invoices.paginator.num_pages }}.
+    </span>
+
+    {% if invoices.has_next %}
+      <a href="?page={{ invoices.next_page_number }}">next</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock content %}

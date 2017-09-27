@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static  %}
+
+{% block content %}
+  <h1>Form</h1>
+  <form method='POST' action=''>{% csrf_token %}
+    <div class="row">
+      <div class="col-md-3 col-md-offset-3">
+        {% if invoice %}
+            <h4>Invoice number: {{invoice.id}}</h4>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2">
+        <div class="messages">
+          {{ form.non_field_errors }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2">
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Receiver:</label>
+          {{ form.receiver | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Date:</label>
+          {{ form.date | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2">
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Sender:</label>
+          {{ form.sender | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Due Date:</label>
+          {{ form.due_date | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+    </div>
+    <div class = "row">
+      <div class="col-md-4 col-md-offset-2">
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Payment term:</label>
+          {{ form.payment_term | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2">
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Terms:</label>
+          {{ form.terms | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Notes:</label>
+          {{ form.notes | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2">
+        <div class="form-inline">
+          <label for="{{ form.subject.id_for_label }}">Discount:</label>
+          {{ form.discount | add_class:"form-control input-sm" }}
+          {{ form.discount_type | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-inline">
+          <label for="{{ form.subject.id_for_label }}">Tax:</label>
+          {{ form.tax | add_class:"form-control input-sm" }}
+          {{ form.tax_type | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+    </div>
+    <div class = "row">
+      <div class="col-md-4 col-md-offset-2">
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Shipping price:</label>
+          {{ form.shipping_price | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+    </div>
+
+    {{ invoice_line_item_formset.management_form }}
+
+    {% if invoice_line_item_formset.non_form_errors %}
+        {% for error in invoice_line_item_formset.non_form_errors %}
+            {{ error|escape }}
+        {% endfor %}
+    {% endif %}
+
+    
+    <strong>
+      <div class="row">
+        <div class="col-md-2 col-md-offset-2">Name</div>
+        <div class="col-md-2">Quantity</div>
+        <div class="col-md-2">Price</div>
+        <div class="col-md-1">Amount</div>
+      </div>
+    </strong>
+
+    {% for invoice_line_item in invoice_line_item_formset.forms %}
+      <div class="formset_row">
+        <div class="row line-item-row">
+          <div class="col-md-2 col-md-offset-2">
+            <div class="form-inline">
+              {{ invoice_line_item.name| add_class:"form-control input-sm" }}
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-inline">
+              {{ invoice_line_item.quantity | add_class:"form-control input-sm" }}
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-inline">
+              {{ invoice_line_item.price | add_class:"form-control input-sm" }}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class = "row">
+      <div class="col-md-2 col-md-offset-2">
+        <input type='submit' value='Save Invoice' class="btn btn-default"/>
+      </div>
+    </div>
+  </form>
+{% endblock content%}

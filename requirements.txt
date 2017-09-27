@@ -1,0 +1,5 @@
+Django==1.11.5
+django-dynamic-formsets==0.0.8
+django-widget-tweaks==1.4.1
+pytz==2017.2
+gunicorn

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block head_title %}
+  {{ instance.title}} | {{ block.super }}
+{% endblock head_title %}
+{% block content %}
+<div class="col-sm-4 col-sm-offset-4">
+  <h3>Number: {{ invoice.id }}</h3>
+  <p>User: {{ invoice.user }}</p>
+  <p>Receiver: {{ invoice.receiver }}</p>
+  <p>Sender: {{ invoice.sender  }}</p>
+  <p>Date: {{ invoice.date }}</p>
+  <p>Due date:{{ invoice.due_date }}</p>
+  Items:
+  <div class="row">
+    <div class="col-sm-3">Name</div>
+    <div class="col-sm-3">Price</div>
+    <div class="col-sm-3">Quantity</div>
+    <div class="col-sm-3">Amount</div>
+  </div>
+  <div class="row">
+    {% for line_item in line_items %}
+      <div class="col-sm-3">{{ line_item.name }}</div>
+      <div class="col-sm-3">{{ line_item.price }}$</div>
+      <div class="col-sm-3">{{ line_item.quantity }}</div>
+      <div class="col-sm-3">{{ line_item.amount }}$</div>
+    {% endfor %}
+  </div>
+  <p>Subtotal: {{ invoice.subtotal }}</p>
+  <p>Discount: {{ invoice.discount }}{{invoice.discount_type}}</p>
+  <p>Tax: {{invoice.tax }}{{invoice.tax_type}}</p>
+  <p>Shipping: {{ invoice.shipping_price }}$</p>
+  <p>Total: {{ invoice.total }}$</p>
+  <a href='{{invoice.get_edit_url}}'><button class="btn btn-default">Edit</button></a>
+</div>
+{% endblock content %}
