@@ -69,30 +69,6 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4 col-md-offset-2">
-        <div class="form-inline">
-          <label for="{{ form.subject.id_for_label }}">Discount:</label>
-          {{ form.discount | add_class:"form-control input-sm" }}
-          {{ form.discount_type | add_class:"form-control input-sm" }}
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-inline">
-          <label for="{{ form.subject.id_for_label }}">Tax:</label>
-          {{ form.tax | add_class:"form-control input-sm" }}
-          {{ form.tax_type | add_class:"form-control input-sm" }}
-        </div>
-      </div>
-    </div>
-    <div class = "row">
-      <div class="col-md-4 col-md-offset-2">
-        <div class="form-group">
-          <label for="{{ form.subject.id_for_label }}">Shipping price:</label>
-          {{ form.shipping_price | add_class:"form-control input-sm" }}
-        </div>
-      </div>
-    </div>
 
     {{ invoice_line_item_formset.management_form }}
 
@@ -112,27 +88,67 @@
       </div>
     </strong>
 
-    {% for invoice_line_item in invoice_line_item_formset.forms %}
-      <div class="formset_row">
+    <div class="formset_row">
+      {% for invoice_line_item in invoice_line_item_formset %}
+        {% for hidden in invoice_line_item.hidden_fields %}
+          {{ hidden }}
+        {% endfor %}
         <div class="row line-item-row">
           <div class="col-md-2 col-md-offset-2">
             <div class="form-inline">
               {{ invoice_line_item.name| add_class:"form-control input-sm" }}
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2" data-behavior="quantity">
             <div class="form-inline">
-              {{ invoice_line_item.quantity | add_class:"form-control input-sm" }}
+              {{ invoice_line_item.quantity | add_class:"form-control input-sm" | set_data:"behavior:calculate-quantity-item" }}
+            </div>
+          </div>
+          <div class="col-md-2" data-behavior="price">
+            <div class="form-inline">
+              {{ invoice_line_item.price | add_class:"form-control input-sm" | set_data:"behavior:calculate-price-item" }}
             </div>
           </div>
           <div class="col-md-2">
-            <div class="form-inline">
-              {{ invoice_line_item.price | add_class:"form-control input-sm" }}
+            <div class="form-inline" data-behavior="item-amount">
             </div>
           </div>
         </div>
+      {% endfor %}
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2">
+        <div class="form-inline">
+          <label for="{{ form.subject.id_for_label }}">Discount:</label>
+          {{ form.discount | add_class:"form-control input-sm" }}
+          {{ form.discount_type | add_class:"form-control input-sm" }}
+        </div>
       </div>
-    {% endfor %}
+      <div class="col-md-4">
+        <div class="form-inline">
+          <label for="{{ form.subject.id_for_label }}">Tax:</label>
+          {{ form.tax | add_class:"form-control input-sm" }}
+          {{ form.tax_type | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+    </div>
+    <div class="row shipping-row">
+      <div class="col-md-4 col-md-offset-2">
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Shipping price:</label>
+          {{ form.shipping_price | add_class:"form-control input-sm" }}
+        </div>
+      </div>
+      <div class="col-md-2">
+          <label for="{{ form.subject.id_for_label }}">Subtotal:</label>
+          <span class="subtotal-price"></span>
+      </div>
+      <div class="col-md-2">
+          <label for="{{ form.subject.id_for_label }}">Total:</label>
+          <span class="total-price"></span>
+      </div>
+    </div>
 
     <div class = "row">
       <div class="col-md-2 col-md-offset-2">

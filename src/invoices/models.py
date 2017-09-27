@@ -2,26 +2,9 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from invoices.choices import *
 
 class Invoice(models.Model):
-    UPON_RECEIPT = 'UR'
-    NET30 = 'N3'
-    NET60 = 'N6'
-    FLAT = '$'
-    PERCENT = '%'
-    PAYMENT_TERMS_CHOICES = (
-        (UPON_RECEIPT, 'Upon Receipt'),
-        (NET30, 'NET30'),
-        (NET60, 'NET60'),
-    )
-    DISCOUNT_TYPE_CHOICES = (
-        (FLAT, '$'),
-        (PERCENT, '%'),
-    )
-    TAX_TYPE_CHOICES = (
-        (FLAT, '$'),
-        (PERCENT, '%'),
-    )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     sender = models.CharField(max_length=127)
     receiver = models.CharField(max_length=127)
