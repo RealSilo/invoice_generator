@@ -4,13 +4,13 @@
 {% endblock head_title %}
 {% block content %}
 <div class="col-sm-4 col-sm-offset-4">
-  <h3>Number: {{ invoice.id }}</h3>
+  <h3>Invoice Number: {{ invoice.id }}</h3>
   <p><strong>User:</strong> {{ invoice.user }}</p>
   <p><strong>Receiver:</strong> {{ invoice.receiver }}</p>
   <p><strong>Sender:</strong> {{ invoice.sender  }}</p>
   <p><strong>Date:</strong> {{ invoice.date }}</p>
   <p><strong>Due date:</strong> {{ invoice.due_date }}</p>
-  Items:
+  <h4>Items:</h4>
   <div class="row">
     <div class="col-sm-3"><strong>Name</strong></div>
     <div class="col-sm-3"><strong>Price</strong></div>
@@ -32,6 +32,7 @@
   <p><strong>Total:</strong> {{ invoice.total }}$</p>
   <a href='{{invoice.get_edit_url}}'><button class="btn btn-default">Edit</button></a>
   <a href='{{invoice.get_delete_url}}'><button class='btn btn-default'>Delete</button></a>
+  <a href="{% url 'invoices:list' %}"><button class="btn btn-default">My invoices</button></a>
 </div>
 
 {% endblock content %}

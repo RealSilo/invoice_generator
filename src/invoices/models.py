@@ -60,6 +60,12 @@ class Invoice(models.Model):
     def clean(self):
         if self.date > self.due_date:
             raise ValidationError('Date cannot precede due date')
+        if self.shipping_price < 0:
+            raise ValidationError('Shipping price must be 0 or positive')
+        if self.tax < 0:
+            raise ValidationError('Tax value must be 0 or positive')
+        if self.discount < 0:
+            raise ValidationError('Discount value must be 0 or positive')
 
     def calculate_discount(self, total, discount, discount_type):
         if discount > 0:
@@ -85,3 +91,11 @@ class InvoiceLineItem(models.Model):
     quantity = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
     amount = models.IntegerField(default=0)
+
+    def clean(self):
+        if self.name is None:
+            raise ValidationError('Item name must be filled')
+        if self.quantity <= 0:
+            raise ValidationError('Quantity must be positive')
+        if self.price <= 0:
+            raise ValidationError('Price must be positive')

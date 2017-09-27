@@ -72,6 +72,8 @@
           </div>
         </div>
 
+        <h4>Items</h4>
+
         {{ invoice_line_item_formset.management_form }}
 
         {% if invoice_line_item_formset.non_form_errors %}
@@ -80,7 +82,6 @@
             {% endfor %}
         {% endif %}
 
-        
         <strong>
           <div class="row">
             <div class="col-md-3">Name</div>
@@ -96,6 +97,7 @@
               {{ hidden }}
             {% endfor %}
             <div class="row line-item-row">
+              {{ invoice_line_item.non_field_errors }}
               <div class="col-md-3">
                 <div class="form-inline">
                   {{ invoice_line_item.name| add_class:"form-control input-sm" }}
@@ -156,6 +158,7 @@
           <div class="col-md-12 col-md-offset">
             <div class="form-group">
               <input type='submit' value='Save Invoice' class="btn btn-default"/>
+              <a href="{% url 'invoices:list' %}"><button class="btn btn-default">Cancel</butto</a>
             </div>
           </div>
         </div>
